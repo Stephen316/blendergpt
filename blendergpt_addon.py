@@ -15,18 +15,21 @@ class BLENDERGPT_Properties(bpy.types.PropertyGroup):
     prompt: bpy.props.StringProperty(
         name="Prompt",
         description="Tell BlenderGPT what you want to create or change",
-        default="Create a simple cube scene",
+        default="",
     )
 
 
 class BLENDERGPT_OT_RunPrompt(bpy.types.Operator):
     bl_idname = "blendergpt.run_prompt"
-    bl_label = "Run Prompt"
-    bl_description = "Run the current BlenderGPT prompt"
+    bl_label = "Check Prompt"
+    bl_description = "Check the prompt; this prototype does not run Blender actions"
 
     def execute(self, context):
-        prompt = context.scene.blendergpt.prompt
-        self.report({"INFO"}, f"BlenderGPT prompt received: {prompt}")
+        if not context.scene.blendergpt.prompt.strip():
+            self.report({"WARNING"}, "Enter a prompt first")
+            return {"CANCELLED"}
+
+        self.report({"INFO"}, "Prompt received. This prototype does not change the scene yet.")
         return {"FINISHED"}
 
 
@@ -41,8 +44,9 @@ class BLENDERGPT_PT_MainPanel(bpy.types.Panel):
         layout = self.layout
         props = context.scene.blendergpt
 
+        layout.label(text="Prototype: no scene changes", icon="INFO")
         layout.prop(props, "prompt")
-        layout.operator("blendergpt.run_prompt", icon="PLAY")
+        layout.operator("blendergpt.run_prompt", icon="CHECKMARK")
 
 
 classes = (
