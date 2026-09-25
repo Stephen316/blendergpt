@@ -20,4 +20,8 @@ BlenderGPT is a starter Blender add-on project. The goal is to let you type an i
 
 ## Current status
 
-This first version creates a panel and a button in Blender. It is a clean starting point for adding real AI commands next.
+This first version lets you enter and check a prompt in the BlenderGPT sidebar. The prompt starts empty; the Check Prompt button asks you to enter one if it is blank, or confirms receipt otherwise. **No scene changes or AI commands are run yet.** This is a starting point for adding real AI commands next.
+
+## Test in Blender
+
+With Blender 4.0 or later installed, run `blender -b --python-exit-code 1 --python tests/test_addon.py` to check registration and the prompt flow.
